@@ -3,7 +3,7 @@ import {
   useCalendarCell,
   useLocale,
   useFocusRing,
-  mergeProps
+  mergeProps,
 } from "react-aria";
 import { isSameDay, getDayOfWeek } from "@internationalized/date";
 
@@ -16,7 +16,7 @@ export function CalendarCell({ state, date }) {
     isOutsideVisibleRange,
     isDisabled,
     formattedDate,
-    isInvalid
+    isInvalid,
   } = useCalendarCell({ date }, state, ref);
 
   // The start and end date of the selected range will have
@@ -47,21 +47,23 @@ export function CalendarCell({ state, date }) {
   return (
     <td
       {...cellProps}
-      className={`py-0.5 relative ${isFocusVisible ? "z-10" : "z-0"}`}
+      className={`relative ${isFocusVisible ? "z-10" : "z-0"}`}
     >
+      {/* Can add bottom border here  */}
       <div
         {...mergeProps(buttonProps, focusProps)}
         ref={ref}
-        hidden={isOutsideVisibleRange}
-        className={`w-10 h-10 outline-none group ${
+        className={`w-10 h-10 outline-none group p-1 ${
           isRoundedLeft ? "rounded-l-full" : ""
         } ${isRoundedRight ? "rounded-r-full" : ""} ${
-          isSelected ? (isInvalid ? "bg-red-300" : "bg-violet-300") : ""
-        } ${isDisabled ? "disabled" : ""}`}
+          isDisabled ? "disabled p-0" : ""
+        }`}
       >
         <div
-          className={`w-full h-full rounded-full flex items-center justify-center ${
-            isDisabled && !isInvalid ? "text-gray-400" : ""
+          className={`w-full h-full flex items-center justify-center ${
+            isDisabled && !isInvalid
+              ? "text-gray-400 bg-gray-100"
+              : "rounded-full"
           } ${
             // Focus ring, visible while the cell has keyboard focus.
             isFocusVisible
@@ -72,7 +74,7 @@ export function CalendarCell({ state, date }) {
             isSelectionStart || isSelectionEnd
               ? isInvalid
                 ? "bg-red-600 text-white hover:bg-red-700"
-                : "bg-violet-600 text-white hover:bg-violet-700"
+                : "bg-black text-white"
               : ""
           } ${
             // Hover state for cells in the middle of the range.
@@ -83,7 +85,7 @@ export function CalendarCell({ state, date }) {
               : ""
           } ${
             // Hover state for non-selected cells.
-            !isSelected && !isDisabled ? "hover:bg-violet-100" : ""
+            !isSelected && !isDisabled ? "hover:bg-gray-200" : ""
           } cursor-default`}
         >
           {formattedDate}

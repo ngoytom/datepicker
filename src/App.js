@@ -1,6 +1,6 @@
 import { DateRangePicker } from "./DateRangePicker";
 import { DatePicker } from "./DatePicker";
-import { today, getLocalTimeZone } from "@internationalized/date";
+import { today, getLocalTimeZone, CalendarDate } from "@internationalized/date";
 
 export default function App() {
   return (
@@ -10,7 +10,7 @@ export default function App() {
       <h2 className="mb-2 font-bold text-xl text-left">DatePicker</h2>
       <DatePicker
         label="Appointment date"
-        minValue={today(getLocalTimeZone())}
+        placeholderValue={new CalendarDate(1980, 1, 1)}
       />
       <h2 className="mt-12 mb-2 font-bold text-xl text-left">
         DateRangePicker
